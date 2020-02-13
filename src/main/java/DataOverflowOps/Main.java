@@ -6,10 +6,11 @@ import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, CsvValidationException {
+    public static void main(String[] args) throws IOException, CsvValidationException, SQLException {
 	      // Literally just calls our parser right now (....and is called for tests)
         CsvParser csvP = new CsvParser("src/Data/bookstore_report2.csv");
         csvP.printCsv();
@@ -27,6 +28,11 @@ public class Main {
 
         for (var element : authors) {
             System.out.println(element.getName());
+        }
+
+        csvP.writeToDB();
+        for (AuthorParser author : authors){
+          BookStoreController.writeAuthor(author);
         }
     }
 }

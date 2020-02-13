@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,19 @@ public class CsvParser {
      */
     if (checkFile(infile)) {
       readCsv(infile);
+    }
+  }
+
+  protected void writeToDB(){
+    if(fileRows.size() == 0){
+      System.out.println("Empty file");
+    }
+    else{
+      for(Object rows : fileRows.subList(1,fileRows.size()-1)){
+        if(!BookStoreController.writeCSV((String[])rows)){
+          System.out.println("Could not write to DB");
+        }
+      }
     }
   }
 
