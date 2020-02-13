@@ -1,21 +1,13 @@
 package DataOverflowOps;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-import com.opencsv.exceptions.CsvValidationException;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Main {
 
-  public static void main(String[] args) throws Exception {
-    // Reads a repair csv file and outputs the results for a report.
-
-    // The repair file I will give to you (so everyone is using same)
+  public static void main(String[] args){
     try {
       Path repairsFile = Paths.get("src/Data/SEOExample.csv");
       FileReader fileReader = new FileReader(repairsFile.toFile());
@@ -35,5 +27,4 @@ public class Main {
       System.out.println("Error");
     }
   }
-
 }
