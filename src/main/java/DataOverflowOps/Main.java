@@ -1,30 +1,32 @@
 package DataOverflowOps;
 
-import java.io.BufferedReader;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+import com.opencsv.exceptions.CsvValidationException;
+
 import java.io.FileReader;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.IOException;
 
 public class Main {
 
-  public static void main(String[] args){
-    try {
-      Path repairsFile = Paths.get("src/Data/SEOExample.csv");
-      FileReader fileReader = new FileReader(repairsFile.toFile());
-      BufferedReader bufferedReader = new BufferedReader(fileReader);
+    public static void main(String[] args) throws IOException, CsvValidationException {
+	      // Literally just calls our parser right now (....and is called for tests)
+        CsvParser csvP = new CsvParser("src/Data/bookstore_report2.csv");
+        csvP.printCsv();
 
-      String line = bufferedReader.readLine();
-      while (line != null) {
+        // Load the json
+        /*
+        1. Create instance of GSON
+        2. Create a JsonReader object using FileReader
+        3. Array of class instances of AuthorParser, assign data from our JsonReader
+        4. foreach loop to check data
+         */
+        Gson gson = new Gson();
+        JsonReader jread = new JsonReader(new FileReader("src/Data/authors.json"));
+        AuthorParser[] authors = gson.fromJson(jread, AuthorParser[].class);
 
-        if(!line.equals("")) {
-          System.out.println(line);
+        for (var element : authors) {
+            System.out.println(element.getName());
         }
-        line = bufferedReader.readLine();
-      }
-      bufferedReader.close();
     }
-    catch (Exception e){
-      System.out.println("Error");
-    }
-  }
 }
